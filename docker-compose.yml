@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app/app
+      - ./tests:/app/tests
+    environment:
+      - ENVIRONMENT=production
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi_tests
+    volumes:
+      - ./app:/app/app
+      - ./tests:/app/tests
+    environment:
+      - ENVIRONMENT=test
+    command: pytest --cov=app --cov-report=term-missing

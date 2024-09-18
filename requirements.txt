@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pydantic
+python-dateutil
+starlette
+flake8
+isort
+httpx
+pytest
+pytest-cov
